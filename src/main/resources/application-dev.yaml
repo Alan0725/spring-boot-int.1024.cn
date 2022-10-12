@@ -1,0 +1,10 @@
+# development（开发环境）
+server:
+  port: 38088
+
+#spring
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cat?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: cat
+    password: cat_qwer@123

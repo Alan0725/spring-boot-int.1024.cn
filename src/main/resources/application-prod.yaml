@@ -1,0 +1,5 @@
+# production（生产环境）
+# server
+server:
+  port: 38088
+#
