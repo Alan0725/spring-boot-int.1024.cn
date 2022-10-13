@@ -1,5 +1,3 @@
-# cat
-
 规约说明
 ---
 
@@ -67,41 +65,30 @@ java
     │   ├──util/
     │   └──...
     ├──controller                    # 控制器对象
-    │   ├──ly/
-    │   ├──bz/
-    │   ├──zw/
-    │   ├──PaiPanController.java
-    │   └──RewardDistributionController.java
     ├──service                       # 业务逻辑类目录。业务逻辑类返回对象结果，不直接进行FreeMaker或JSON数据封装
-    │   ├──PaiPanService.java
+    │   ├──CatService.java
     │   └──impl                      # 业务逻辑层接口实现。实现类以ServiceImpl结尾
-    │       └──PaiPanServiceImpl.java
-    ├──repository                    # 缓存对象类目录
-    │   └──PaiPanRepository.java
+    │       └──CatServiceImpl.java
+    ├──cache                         # 缓存对象类目录
+    │   └──CatCache.java
     ├──dao                           # 数据访问类目录。此目录只存放接口，以大写DAO结尾
-    │   ├──PaiPanDAO.java
-    │   ├──RewardDistributionDAO.java
+    │   ├──CatDAO.java
     │   └──impl                      # 数据访问类的具体实现。实现类以DAOImpl结尾
-    │       ├──PaiPanDAOImpl.java
-    │       └──RewardDistributionDAOImpl.java
+    │       └──CatDAOImpl.java
     ├──entity                        # 实体对象类目录
-    │   ├──cond                      # 将查询参数封装为查询对象，以Cond结尾
-    │   │   ├──PaiPanSelectCond.java
-    │   │   └──PaiPanUpdateCond.java
     │   ├──vo                        # 视图对象。由controller层封装处理，或直接以对象放入FreeMaker的context中，供页面解析展示，或转换为json返回给前端。视情况一般命名以Info、Result等结尾
-    │   │   ├──PaiPanList.java
-    │   │   ├──PayResult.java
-    │   │   └──UserInfo.java
+    │   │   ├──CatList.java
+    │   │   ├──CatResult.java
+    │   │   └──CatInfo.java
     │   ├──dto                       # 数据传输对象。同应用层之间的数据传输。如controller将请求参数封装为以Param结尾的对象，传入service层调用
-    │   │   ├──RewardPaipanSelectParam.java
-    │   │   ├──PaiPanSaveParam.java
-    │   │   └──PaiPanReplyRemoveDto.java
+    │   │   ├──CatParam.java
+    │   │   └──CatRemoveDto.java
     │   ├──bo                        # 业务实体对象，与具体的业务相关
     │   │   ├──Gua64.java
     │   │   └──Gua8.java
     │   └──po                        # 持久化对象，与数据库表对应
-    │       ├──PaiPan.java
-    │       └──PaiPanReply.java
+    │       ├──Cat.java
+    │       └──CatReply.java
     ├──exception                     # 异常对象目录
     │       └──DatabaseException.java
     └──util                          # 工具类目录
@@ -109,9 +96,8 @@ java
 ```
 
 <span style="color:rgb(178,124,0)">说明：</span>
-①&ensp;*`entity/cond`*目录下的对象需要实现com.retu.commons.db.QueryCond接口，一般用于比较复杂的SQL操作，视情况而使用。可以粗略地理解为MyBatis的Mapper.xml映射文件，若是使用MyBatis，则很可能不会使用到此类。这只是对老项目进行的更便于SQL操作的封装。  
-②&ensp;当*`entity/po`*目录下的实体对象完全可以封装请求参数或作为返回对象时，不用创建*`dto`*和*`vo`*对象。其它实体对象同样  
-③&ensp;以上每个目录下面均可根据需求，创建细分的业务目录。如：*`controller/ly`*、*`controller/bz`*等  
+①&ensp;当*`entity/po`*目录下的实体对象完全可以封装请求参数或作为返回对象时，不用创建*`dto`*和*`vo`*对象。其它实体对象同样  
+②&ensp;以上每个目录下面均可根据需求，创建细分的业务目录。如：*`controller/ly`*、*`controller/bz`*等
 
 
 ### 资源目录_resources_

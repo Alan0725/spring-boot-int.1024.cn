@@ -16,6 +16,8 @@
     <description>cat</description>
     <properties>
         <java.version>1.8</java.version>
+        <mybatis.version>2.2.2</mybatis.version>
+        <alibaba.druid.version>1.2.13-SNSAPSHOT</alibaba.druid.version>
     </properties>
     <dependencies>
         <dependency>
@@ -45,7 +47,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
+            <version>${mybatis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
@@ -76,7 +78,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.2.13-SNSAPSHOT</version>
+            <version>${alibaba.druid.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -5,5 +5,6 @@ spring:
     name: cat
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-  mvc:
-    static-path-pattern: /**
+  output:
+    ansi:
+      enabled: ALWAYS
