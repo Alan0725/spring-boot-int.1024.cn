@@ -1,4 +1,4 @@
-package com.dxh.cat;
+package cn.int1024.cat;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

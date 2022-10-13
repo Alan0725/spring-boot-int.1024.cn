@@ -1,4 +1,4 @@
-package com.dxh.cat;
+package cn.int1024.cat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
