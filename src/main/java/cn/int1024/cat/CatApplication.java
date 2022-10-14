@@ -1,15 +1,17 @@
 package cn.int1024.cat;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @Description: Application
- * @Author: 双料特工 · 钏疝钾
- * @Date: 2022/10/12 21:19
+ * @Description: CatApplication
+ * @Author: 双料特工·钏钐钾
+ * @Date: 2022/10/14 17:10:00
  * @Version: 1.0
  */
 @SpringBootApplication
+@MapperScan("cn.int1024.cat.mapper")
 public class CatApplication {
 
     public static void main(String[] args) {

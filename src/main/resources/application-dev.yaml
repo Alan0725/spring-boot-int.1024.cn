@@ -2,9 +2,23 @@
 server:
   port: 38088
 
-#spring
+# spring
 spring:
+  security:
+    user:
+      name: admin
+      password: admin
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cat?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
     username: cat
     password: cat_qwer@123
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+# log
+logging:
+  level:
+    cn:
+      int1024:
+        cat: DEBUG
