@@ -1,9 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.int1024.cat.mapper.UserMapper">
+
     <select id="queryAll" resultType="cn.int1024.cat.entity.po.User">
-        SELECT * FROM `user`
+        SELECT *
+        FROM `user`
     </select>
+
+    <insert id="addUser" parameterType="cn.int1024.cat.entity.po.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user`(`account`, `password`, `nick_name`, `gender`, `phone_number`, `email`, `avatar`,
+                           `birthday`, `states`, `register_time`)
+        VALUES (#{account}, #{password}, #{nickName}, #{gender}, #{phoneNumber}, #{email},
+                #{avatar}, #{birthday}, #{states},
+                NOW())
+    </insert>
+
+    <delete id="delAll">
+        DELETE
+        FROM `user`
+        WHERE id != 1
+    </delete>
 </mapper>

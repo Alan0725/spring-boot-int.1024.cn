@@ -6,6 +6,7 @@ import cn.int1024.cat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,6 +20,16 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Override
+    public Integer addUser(User user) {
+        return userMapper.addUser(user) > 0 ? user.getId() : 0;
+    }
+
+    @Override
+    public Integer delAll() {
+        return userMapper.delAll();
+    }
 
     @Override
     public List<User> getAll() {

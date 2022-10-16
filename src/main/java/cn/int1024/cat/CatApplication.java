@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Version: 1.0
  */
 @SpringBootApplication
-@MapperScan("cn.int1024.cat.mapper")
 public class CatApplication {
 
     public static void main(String[] args) {

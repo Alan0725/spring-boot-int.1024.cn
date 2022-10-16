@@ -9,9 +9,13 @@ spring:
       name: admin
       password: admin
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/cat?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/cat?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai&serverTimezone=GMT%2B8
     username: cat
     password: cat_qwer@123
+    druid:
+      statViewServlet:
+        loginUsername: admin
+        loginPassword: admin
   redis:
     host: 127.0.0.1
     port: 6379
@@ -22,3 +26,6 @@ logging:
     cn:
       int1024:
         cat: DEBUG
+    com:
+      zzg:
+        mapper: DEBUG

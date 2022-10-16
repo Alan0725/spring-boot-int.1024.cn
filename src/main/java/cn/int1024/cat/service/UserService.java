@@ -14,7 +14,22 @@ public interface UserService {
 
     /**
      * 获取所有用户
+     *
      * @return List<User>
      */
     List<User> getAll();
+
+    /**
+     * 新增用户
+     *
+     * @param user 用户
+     * @return 用户ID
+     */
+    Integer addUser(User user);
+
+    /**
+     * 删除所有
+     * @return  删除数量
+     */
+    Integer delAll();
 }
