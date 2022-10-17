@@ -3,6 +3,7 @@ package cn.int1024.cat.service.impl;
 import cn.int1024.cat.entity.po.User;
 import cn.int1024.cat.mapper.UserMapper;
 import cn.int1024.cat.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
+        PageHelper.startPage(1, 10);
         return userMapper.queryAll();
     }
 }
