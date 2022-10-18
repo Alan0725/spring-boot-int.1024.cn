@@ -1,6 +1,7 @@
 package cn.int1024.cat.service.impl;
 
 import cn.int1024.cat.entity.po.User;
+import cn.int1024.cat.entity.vo.UserInfo;
 import cn.int1024.cat.mapper.UserMapper;
 import cn.int1024.cat.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -30,6 +31,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer delAll() {
         return userMapper.delAll();
+    }
+
+    @Override
+    public UserInfo getUserInfo(int userId) {
+        return userMapper.getUserInfo(userId);
     }
 
     @Override

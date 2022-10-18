@@ -1,9 +1,7 @@
 package cn.int1024.cat.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -14,8 +12,6 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     Integer id;

@@ -1,6 +1,7 @@
 package cn.int1024.cat.mapper;
 
 import cn.int1024.cat.entity.po.User;
+import cn.int1024.cat.entity.vo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -34,4 +35,11 @@ public interface UserMapper {
      * @return 删除数量
      */
     Integer delAll();
+
+    /**
+     * 获取用户信息
+     * @param userId    用户ID
+     * @return  用户信息
+     */
+    UserInfo getUserInfo(int userId);
 }
