@@ -1,7 +1,7 @@
 package cn.int1024.cat.security.intercepors;
 
 import cn.int1024.cat.common.util.RequestUtil;
-import com.alibaba.fastjson.JSONObject;
+import cn.int1024.cat.common.util.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
@@ -34,32 +34,37 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (handler instanceof ResourceHttpRequestHandler) {
 			return true;
 		}
+		if(RequestUtil.isAdminClient(request)) {
+			return this.checkToken(request, response);
+		}
+		return false;
+	}
+
+	private void setResult(HttpServletResponse response, String data) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.write(Result.noPermission(data).toJSON().toString());
+		out.flush();
+		out.close();
+	}
+
+	/**
+	 * 校验令牌
+	 */
+	private boolean checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 获取token
 		String token = request.getHeader(RequestUtil.HEADER_TOKEN_NAME);
 		if (StringUtils.isEmpty(token)) {
-			this.setResult(response, "No Permission");
+			this.setResult(response, "please login");
 		} else {
 			try {
-//				JwtParser parser = Jwts.parser();
-//				parser.setSigningKey("miyao");
-//				Jws<Claims> ClaimsJws =parser.parseClaimsJws(token);
+				// 验证 token
 				return true;
 			} catch (Exception e) {
 				this.setResult(response, e.getMessage());
 			}
 		}
 		return false;
-	}
-
-	private void setResult(HttpServletResponse response, String message) throws IOException {
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json; charset=utf-8");
-		JSONObject res = new JSONObject();
-		res.put("code", 403);
-		res.put("message", message);
-		PrintWriter out = response.getWriter();
-		out.write(res.toString());
-		out.flush();
-		out.close();
 	}
 }

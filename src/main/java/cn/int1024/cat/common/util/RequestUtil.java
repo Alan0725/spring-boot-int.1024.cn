@@ -1,5 +1,10 @@
 package cn.int1024.cat.common.util;
 
+import cn.int1024.cat.enums.App;
+import org.thymeleaf.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Description:
  * @Author: 双料特工·钏钐钾
@@ -10,6 +15,18 @@ public class RequestUtil {
 	/**
 	 * token
 	 */
-	public final static String HEADER_TOKEN_NAME = "x-token";
+	public final static String HEADER_TOKEN_NAME = "X-Token";
 
+	/**
+	 * 应用ID
+	 */
+	public final static String HEADER_APP_ID = "X-App-Id";
+
+	/**
+	 * 是否为管理端
+	 */
+	public static boolean isAdminClient(HttpServletRequest request) {
+		String appId = request.getHeader(HEADER_APP_ID);
+		return !StringUtils.isEmpty(appId) && Integer.parseInt(appId) == App.ADMIN_CLIENT.getId();
+	}
 }

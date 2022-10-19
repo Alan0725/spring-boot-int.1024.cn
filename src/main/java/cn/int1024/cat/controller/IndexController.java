@@ -1,5 +1,6 @@
 package cn.int1024.cat.controller;
 
+import cn.int1024.cat.common.util.Result;
 import cn.int1024.cat.entity.vo.UserInfo;
 import cn.int1024.cat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class IndexController {
 
     @ResponseBody
     @RequestMapping("all")
-    @PreAuthorize("hasAuthority('user222')")
-    public List<UserInfo> getAllUser() {
-        return userService.getAll();
+    @PreAuthorize("hasAuthority('user')")
+    public Result<List<UserInfo>> getAllUser() {
+        return Result.success(userService.getAll());
     }
 }

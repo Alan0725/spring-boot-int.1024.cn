@@ -34,7 +34,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(urls).permitAll()
                 .anyRequest().authenticated();
+
         http.formLogin();
+
         http.csrf().ignoringAntMatchers("/druid/*");
     }
 }

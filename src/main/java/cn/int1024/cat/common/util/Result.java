@@ -1,5 +1,8 @@
 package cn.int1024.cat.common.util;
 
+import cn.int1024.cat.enums.ResultCode;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 
 /**
@@ -29,55 +32,76 @@ public class Result<T> {
 
 	/**
 	 * 成功时候的调用（有数据）
-	 * @param data
-	 * @param <T>
-	 * @return
 	 */
 	public static <T> Result<T> success(T data){
-		return new Result<T>(data);
+		return new Result<>(data);
 	}
 
 	/**
 	 * 成功时候的调用（无数据）
-	 * @param <T>
-	 * @return
 	 */
 	public static <T> Result<T> success(){
-		return new Result<T>();
+		return new Result<>();
 	}
 
 	/**
 	 * 异常时候的调用（有msg参数）
-	 * @param msg
-	 * @param <T>
-	 * @return
 	 */
 	public static <T> Result<T> error(String msg){
-		return new Result<T>(msg);
+		return new Result<>(msg);
 	}
 
 	/**
 	 * 异常时候的调用（无msg参数）
-	 * @param <T>
-	 * @return
 	 */
 	public static <T> Result<T> error(){
-		return new Result<T>("error");
+		return new Result<>("error");
+	}
+
+	public static <T> Result<T> error(int code, String msg){
+		return new Result<>(code, msg);
+	}
+
+	public static <T> Result<T> error(int code, String msg, T data){
+		return new Result<>(code, msg, data);
+	}
+
+	public static <T> Result<T> noPermission(T data) {
+		return new Result<>(ResultCode.NO_PERMISSION.getCode(), ResultCode.NO_PERMISSION.getMsg(), data);
 	}
 
 	private Result(T data) {
-		this.code = 200;
-		this.msg = "success";
+		this.code = ResultCode.SUCCESS.getCode();
+		this.msg = ResultCode.SUCCESS.getMsg();
 		this.data = data;
 	}
 
 	private Result() {
-		this.code = 200;
-		this.msg = "success";
+		this.code = ResultCode.SUCCESS.getCode();
+		this.msg = ResultCode.SUCCESS.getMsg();
 	}
 
 	private Result(String msg) {
-		this.code = 400;
+		this.code = ResultCode.ERROR.getCode();
 		this.msg = msg;
+	}
+
+	private Result(int code, String msg) {
+		this.code = code;
+		this.msg = msg;
+	}
+
+	private Result(int code, String msg, T data) {
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+	}
+
+	public JSON toJSON() {
+		JSONObject object = new JSONObject();
+		object.put("code", code);
+		object.put("msg", msg);
+		object.put("data", data);
+		return object;
 	}
 }
