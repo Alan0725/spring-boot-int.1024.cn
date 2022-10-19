@@ -20,7 +20,7 @@ public interface UserMapper {
      *
      * @return List<User>
      */
-    List<User> queryAll();
+    List<UserInfo> queryAll();
 
     /**
      * 新增用户
@@ -32,14 +32,16 @@ public interface UserMapper {
 
     /**
      * 删除所有
+     *
      * @return 删除数量
      */
     Integer delAll();
 
     /**
      * 获取用户信息
-     * @param userId    用户ID
-     * @return  用户信息
+     *
+     * @param username 用户名
+     * @return 用户信息
      */
-    UserInfo getUserInfo(int userId);
+    UserInfo getUserInfo(String username);
 }

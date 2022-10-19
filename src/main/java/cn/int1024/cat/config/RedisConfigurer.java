@@ -1,6 +1,6 @@
 package cn.int1024.cat.config;
 
-import cn.int1024.cat.common.core.redis.FastJsonRedisSerializer;
+import cn.int1024.cat.common.redis.FastJsonRedisSerializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @EnableCaching
 @Configuration
-public class RedisConfig {
+public class RedisConfigurer {
     @Bean
     @SuppressWarnings(value = {"unchecked", "rawtypes"})
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {

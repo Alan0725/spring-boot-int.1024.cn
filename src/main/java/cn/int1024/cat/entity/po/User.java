@@ -1,5 +1,6 @@
 package cn.int1024.cat.entity.po;
 
+import cn.int1024.cat.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class User {
 
     Integer id;
 
-    String account;
+    String username;
 
     String password;
 
@@ -33,8 +34,17 @@ public class User {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     Date birthday;
 
-    Integer states;
+    Integer status;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     Date registerTime;
+
+    /**
+     * 是否启用
+     *
+     * @return boolean
+     */
+    public boolean isDisabled() {
+        return this.status.equals(UserStatus.DISABLE.getStatus());
+    }
 }

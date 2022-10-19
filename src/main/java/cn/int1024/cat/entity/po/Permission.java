@@ -2,8 +2,6 @@ package cn.int1024.cat.entity.po;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @Description:
  * @Author: 双料特工 · 钏疝钾
@@ -12,7 +10,10 @@ import java.io.Serializable;
  */
 @Data
 public class Permission {
+
     private Integer id;
+
     private String name;
+
     private String value;
 }

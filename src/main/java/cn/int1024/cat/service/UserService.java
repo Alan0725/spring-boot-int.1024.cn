@@ -15,17 +15,17 @@ public interface UserService {
 
     /**
      * 获取用户信息
-     * @param userId    用户ID
+     * @param username    用户名称
      * @return  用户信息
      */
-    UserInfo getUserInfo(int userId);
+    UserInfo getUserInfo(String username);
 
     /**
      * 获取所有用户
      *
      * @return List<User>
      */
-    List<User> getAll();
+    List<UserInfo> getAll();
 
     /**
      * 新增用户

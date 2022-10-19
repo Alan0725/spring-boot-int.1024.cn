@@ -3,7 +3,6 @@ spring:
     active: dev
   application:
     name: cat
-  security:
   output:
     ansi:
       enabled: ALWAYS
@@ -82,7 +81,6 @@ mybatis:
     map-underscore-to-camel-case: true
 # page helper
 pagehelper:
-  propertyName: propertyValue
   reasonable: false
   defaultCount: true
 # 日志

@@ -1,4 +1,4 @@
-package cn.int1024.cat.common.core.redis;
+package cn.int1024.cat.common.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;

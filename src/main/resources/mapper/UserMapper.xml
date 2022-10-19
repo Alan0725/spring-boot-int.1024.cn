@@ -2,16 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.int1024.cat.mapper.UserMapper">
 
-    <select id="queryAll" resultType="cn.int1024.cat.entity.po.User">
-        SELECT *
-        FROM `user`
+    <select id="queryAll" resultMap="UserInfoMap">
+        SELECT u.*,
+               p.id     AS permission_id,
+               p.`name` AS permission_name,
+               p.value,
+               r.id     AS role_id,
+               r.`name` AS role_name,
+               r.`level`,
+               r.description
+        FROM `user` AS u
+                 LEFT JOIN `user_role` AS ur
+                           ON u.id = ur.user_id
+                 LEFT JOIN `role` as r
+                           ON ur.role_id = r.id
+                 LEFT JOIN `role_permission` as rp
+                           ON r.id = rp.role_id
+                 LEFT JOIN `permission` as p
+                           ON rp.permission_id = p.id
     </select>
 
     <insert id="addUser" parameterType="cn.int1024.cat.entity.po.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `user`(`account`, `password`, `nick_name`, `gender`, `phone_number`, `email`, `avatar`,
-                           `birthday`, `states`, `register_time`)
-        VALUES (#{account}, #{password}, #{nickName}, #{gender}, #{phoneNumber}, #{email},
-                #{avatar}, #{birthday}, #{states},
+        INSERT INTO `user`(`username`, `password`, `nick_name`, `gender`, `phone_number`, `email`, `avatar`,
+                           `birthday`, `status`, `register_time`)
+        VALUES (#{username}, #{password}, #{nickName}, #{gender}, #{phoneNumber}, #{email},
+                #{avatar}, #{birthday}, #{status},
                 NOW())
     </insert>
 
@@ -39,12 +54,12 @@
                        ON r.id = rp.role_id
              LEFT JOIN `permission` as p
                        ON rp.permission_id = p.id
-        WHERE u.id = #{userId}
+        WHERE u.username = #{username}
     </select>
 
     <resultMap id="UserInfoMap" type="cn.int1024.cat.entity.vo.UserInfo">
         <id column="id" property="id" />
-        <result column="account" property="account" />
+        <result column="username" property="username" />
         <result column="password" property="password" />
         <result column="nick_name" property="nickName" />
         <result column="gender" property="gender" />
@@ -52,7 +67,7 @@
         <result column="email" property="email" />
         <result column="avatar" property="avatar" />
         <result column="birthday" property="birthday" />
-        <result column="states" property="states" />
+        <result column="status" property="status" />
         <result column="register_time" property="registerTime" />
         <association  property="role" javaType="cn.int1024.cat.entity.po.Role">
             <id column="role_id" property="id" />

@@ -34,12 +34,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfo getUserInfo(int userId) {
-        return userMapper.getUserInfo(userId);
+    public UserInfo getUserInfo(String username) {
+        return userMapper.getUserInfo(username);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<UserInfo> getAll() {
         PageHelper.startPage(1, 10);
         return userMapper.queryAll();
     }

@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" media="screen" th:href="@{/css/index.css}">
+  <link rel="icon" th:href="@{/image/favicon.ico}" type="image/x-icon"/>
+  <link rel="bookmark" th:href="@{/image/favicon.ico}" type="image/x-icon"/>
 </head>
 <body>
-  <div>
-      嗨嗨嗨
-  </div>
+<div id="particles-js" style="display: flex;align-items: center;justify-content: center">
+  <canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;" width="472" height="625"></canvas>
+</div>
+<div class="apTitle">Hello World</div>
+<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/index-app.js}"></script>
 </body>
 </html>

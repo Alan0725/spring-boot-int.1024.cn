@@ -1,4 +1,4 @@
-package cn.int1024.cat.common.core.redis;
+package cn.int1024.cat.common.redis;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
