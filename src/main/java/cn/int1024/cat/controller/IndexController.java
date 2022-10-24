@@ -4,7 +4,6 @@ import cn.int1024.cat.common.util.Result;
 import cn.int1024.cat.entity.vo.UserInfo;
 import cn.int1024.cat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +28,6 @@ public class IndexController {
 
     @ResponseBody
     @RequestMapping("all")
-    @PreAuthorize("hasAuthority('user')")
     public Result<List<UserInfo>> getAllUser() {
         return Result.success(userService.getAll());
     }
