@@ -22,9 +22,13 @@ public class ShiroConfigurer {
 	@Bean
 	public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+		// 给ShiroFilter配置安全管理器
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
+		// 配置系统受限资源
 		Map<String, String> map = new HashMap<>(1);
-		map.put("/index.jsp","authc");
+		map.put("/user/login","anon");
+		map.put("/**","authc");
+		// 设置认证界面路径
 		shiroFilterFactoryBean.setLoginUrl("/login.jsp");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 		return shiroFilterFactoryBean;

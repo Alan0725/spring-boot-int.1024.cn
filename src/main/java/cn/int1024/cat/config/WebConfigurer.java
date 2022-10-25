@@ -19,16 +19,16 @@ public class WebConfigurer implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		String[] excludePath = {
-				"/register",
-				"/login",
-				"/*.js",
-				"/*.css"
-		};
-		registry.addInterceptor(loginInterceptor)
-				//所有路径都被拦截
-				.addPathPatterns("/**")
-				//添加不拦截的路径
-				.excludePathPatterns(excludePath);
+//		String[] excludePath = {
+//				"/register",
+//				"/login",
+//				"/*.js",
+//				"/*.css"
+//		};
+//		registry.addInterceptor(loginInterceptor)
+//				//所有路径都被拦截
+//				.addPathPatterns("/**")
+//				//添加不拦截的路径
+//				.excludePathPatterns(excludePath);
 	}
 }
