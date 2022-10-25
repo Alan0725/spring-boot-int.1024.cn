@@ -2,11 +2,15 @@ package cn.int1024.cat.service.impl;
 
 import cn.int1024.cat.entity.po.User;
 import cn.int1024.cat.entity.vo.UserInfo;
+import cn.int1024.cat.enums.UserGender;
+import cn.int1024.cat.enums.UserStatus;
 import cn.int1024.cat.mapper.UserMapper;
 import cn.int1024.cat.service.UserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,20 +21,17 @@ import java.util.List;
  * @Date: 2022/10/14 17:11:00
  * @Version: 1.0
  */
-@Service
+@Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
 
-    @Override
-    public Integer addUser(User user) {
-        return userMapper.addUser(user) > 0 ? user.getId() : 0;
-    }
 
     @Override
-    public Integer delAll() {
-        return userMapper.delAll();
+    public User findByUsername(String username) {
+        return userMapper.findByUsername(username);
     }
 
     @Override
@@ -39,8 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserInfo> getAll() {
-        PageHelper.startPage(1, 10);
-        return userMapper.queryAll();
+    public Integer register(User user) {
+        user.setStatus(UserStatus.NORMAL.getStatus());
+        user.setGender(UserGender.SECRECY.getCode());
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        return userMapper.save(user);
     }
+
 }

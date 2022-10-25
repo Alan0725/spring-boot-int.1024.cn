@@ -3,6 +3,7 @@ package cn.int1024.cat.mapper;
 import cn.int1024.cat.entity.po.User;
 import cn.int1024.cat.entity.vo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,14 +14,8 @@ import java.util.List;
  * @Version: 1.0
  */
 @Mapper
+@Repository
 public interface UserMapper {
-
-    /**
-     * 查询所有用户
-     *
-     * @return List<User>
-     */
-    List<UserInfo> queryAll();
 
     /**
      * 新增用户
@@ -28,14 +23,7 @@ public interface UserMapper {
      * @param user 用户
      * @return 用户ID
      */
-    Integer addUser(User user);
-
-    /**
-     * 删除所有
-     *
-     * @return 删除数量
-     */
-    Integer delAll();
+    Integer save(User user);
 
     /**
      * 获取用户信息
@@ -44,4 +32,11 @@ public interface UserMapper {
      * @return 用户信息
      */
     UserInfo getUserInfo(String username);
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    User findByUsername(String username);
 }

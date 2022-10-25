@@ -1,14 +1,9 @@
 package cn.int1024.cat.controller;
 
-import cn.int1024.cat.common.util.Result;
-import cn.int1024.cat.entity.vo.UserInfo;
 import cn.int1024.cat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @Description: IndexController
@@ -24,11 +19,5 @@ public class IndexController {
     @RequestMapping("/")
     public String index() {
         return "index";
-    }
-
-    @ResponseBody
-    @RequestMapping("all")
-    public Result<List<UserInfo>> getAllUser() {
-        return Result.success(userService.getAll());
     }
 }

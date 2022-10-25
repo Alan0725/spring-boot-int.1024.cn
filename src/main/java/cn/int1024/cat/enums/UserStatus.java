@@ -22,13 +22,13 @@ public enum UserStatus {
      * 状态码
      */
     @Getter
-    Integer status;
+    final Integer status;
 
     /**
      * 状态描述
      */
     @Getter
-    String desc;
+    final String desc;
 
     UserStatus(Integer status, String desc) {
         this.status = status;

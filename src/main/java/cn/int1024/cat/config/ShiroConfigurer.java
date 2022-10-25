@@ -1,5 +1,6 @@
 package cn.int1024.cat.config;
 
+import cn.int1024.cat.security.CustomerCredentialsMatcher;
 import cn.int1024.cat.security.CustomerRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -27,6 +28,8 @@ public class ShiroConfigurer {
 		// 配置系统受限资源
 		Map<String, String> map = new HashMap<>(1);
 		map.put("/user/login","anon");
+		map.put("/user/register","anon");
+		map.put("/register.jsp","anon");
 		map.put("/**","authc");
 		// 设置认证界面路径
 		shiroFilterFactoryBean.setLoginUrl("/login.jsp");
@@ -43,6 +46,9 @@ public class ShiroConfigurer {
 
 	@Bean
 	public Realm getRealm() {
-		return new CustomerRealm();
+		CustomerRealm realm = new CustomerRealm();
+		// 设置自定义认证加密方式
+		realm.setCredentialsMatcher(new CustomerCredentialsMatcher());
+		return realm;
 	}
 }

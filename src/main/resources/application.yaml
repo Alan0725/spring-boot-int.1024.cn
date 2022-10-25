@@ -76,6 +76,7 @@ spring:
         resetEnable: false
 # my batis
 mybatis:
+  type-aliases-package: cn.int1024.cat.entity.po
   mapper-locations: classpath:mapper/**Mapper.xml
   configuration:
     map-underscore-to-camel-case: true

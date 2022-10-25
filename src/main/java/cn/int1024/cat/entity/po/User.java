@@ -1,9 +1,12 @@
 package cn.int1024.cat.entity.po;
 
 import cn.int1024.cat.enums.UserStatus;
+import cn.int1024.cat.enums.UserGender;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
@@ -13,6 +16,9 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     Integer id;
@@ -23,6 +29,9 @@ public class User {
 
     String nickName;
 
+    /**
+     * @see UserGender
+     */
     Integer gender;
 
     String phoneNumber;
@@ -34,6 +43,9 @@ public class User {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     Date birthday;
 
+    /**
+     * @see UserStatus
+     */
     Integer status;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
