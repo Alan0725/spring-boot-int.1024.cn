@@ -20,7 +20,7 @@ public interface UserService {
      * @param username    用户名称
      * @return  用户信息
      */
-    UserInfo getUserInfo(String username);
+    UserInfo findUserInfoByUsername(String username);
 
     /**
      * 用户注册

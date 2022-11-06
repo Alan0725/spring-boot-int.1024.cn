@@ -3,8 +3,8 @@ package cn.int1024.cat.enums;
 import lombok.Getter;
 
 /**
- * @Description:
- * @Author: 双料特工 · 钏疝钾
+ * @Description: 状态码
+ * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/19 21:09
  * @Version: 1.0
  */

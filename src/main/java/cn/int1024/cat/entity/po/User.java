@@ -1,12 +1,11 @@
 package cn.int1024.cat.entity.po;
 
-import cn.int1024.cat.enums.UserStatus;
 import cn.int1024.cat.enums.UserGender;
+import cn.int1024.cat.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,10 +15,7 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
-@Accessors(chain = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
+public class User implements Serializable {
 
     Integer id;
 

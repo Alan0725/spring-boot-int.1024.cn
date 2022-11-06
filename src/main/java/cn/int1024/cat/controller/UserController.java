@@ -11,9 +11,10 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * @Description:
+ * @Description: UserController
  * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/25 18:02:00
  * @Version: 1.0
@@ -48,7 +49,8 @@ public class UserController {
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(new UsernamePasswordToken(username,password));
-			log.debug("登录成功！！！");
+			String principal = (String) subject.getPrincipal();
+			log.debug("{} 登录成功！！！", principal);
 			return "redirect:/index.jsp";
 		} catch (UnknownAccountException e) {
 			log.debug("用户错误！！！");

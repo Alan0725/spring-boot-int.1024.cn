@@ -5,10 +5,8 @@ import cn.int1024.cat.entity.vo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
- * @Description:
+ * @Description: UserMapper
  * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/14 17:04:00
  * @Version: 1.0
@@ -31,10 +29,9 @@ public interface UserMapper {
      * @param username 用户名
      * @return 用户信息
      */
-    UserInfo getUserInfo(String username);
+    UserInfo findUserInfoByUsername(String username);
 
     /**
-     *
      * @param username
      * @return
      */

@@ -1,21 +1,17 @@
 package cn.int1024.cat.entity.po;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
- * @Description:
- * @Author: 双料特工 · 钏疝钾
+ * @Description: 权限
+ * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/18 22:20
  * @Version: 1.0
  */
 @Data
-@Accessors(chain = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class Permission {
+public class Permission implements Serializable {
 
     private Integer id;
 

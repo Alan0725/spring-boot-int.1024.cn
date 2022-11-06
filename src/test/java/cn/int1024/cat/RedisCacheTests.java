@@ -29,20 +29,13 @@ class RedisCacheTests {
         redisCache.setCacheObject("hhh", "123");
         String str = redisCache.getCacheObject("hhh");
         log.debug(str);
-        User user = new User();
-        user.setUsername("ABC");
-        user.setPassword("********");
-        redisCache.setCacheObject("ABC", user);
-        User redisUser = redisCache.getCacheObject("ABC");
+        UserInfo userInfo = mapper.getUserInfo("admin");
+        log.debug(userInfo.toString());
+        redisCache.setCacheObject(userInfo.getUsername(), userInfo);
+        UserInfo redisUser = redisCache.getCacheObject(userInfo.getUsername());
         log.debug(redisUser.getUsername());
         log.debug(redisUser.getPassword());
-        redisCache.deleteObject("ABC");
         redisCache.deleteObject("hhh");
-    }
-
-    @Test
-    void userInfoTest() {
-        UserInfo userInfo = mapper.getUserInfo("admin");
-        System.out.println(userInfo.toString());
+        redisCache.deleteObject(userInfo.getUsername());
     }
 }

@@ -16,25 +16,24 @@
                 NOW())
     </insert>
 
-    <select id="getUserInfo" resultMap="UserInfoMap">
-        SELECT u.*,
-               p.id     AS permission_id,
-               p.`name` AS permission_name,
-               p.value,
-               r.id     AS role_id,
-               r.`name` AS role_name,
-               r.`level`,
-               r.description
-        FROM `user` AS u
-             LEFT JOIN `user_role` AS ur
-                       ON u.id = ur.user_id
-             LEFT JOIN `role` as r
-                       ON ur.role_id = r.id
-             LEFT JOIN `role_permission` as rp
-                       ON r.id = rp.role_id
-             LEFT JOIN `permission` as p
-                       ON rp.permission_id = p.id
-        WHERE u.username = #{username}
+    <select id="findUserInfoByUsername" resultMap="UserInfoMap">
+        SELECT
+            u.*,
+            r.id AS role_id,
+            r.`name` AS role_name,
+            r.`level`,
+            r.value,
+            p.id AS permission_id,
+            p.`name` AS permission_name,
+            p.`value` AS permission_value
+        FROM
+            `user` AS u
+                LEFT JOIN `user_role` AS ur ON u.id = ur.user_id
+                LEFT JOIN `role` AS r ON ur.role_id = r.id
+                LEFT JOIN `role_permission`AS rp ON r.id = rp.role_id
+                LEFT JOIN `permission` AS p ON rp.permission_id = p.id
+        WHERE
+            u.username = #{username}
     </select>
 
     <resultMap id="UserInfoMap" type="cn.int1024.cat.entity.vo.UserInfo">
@@ -49,16 +48,16 @@
         <result column="birthday" property="birthday" />
         <result column="status" property="status" />
         <result column="register_time" property="registerTime" />
-        <association  property="role" javaType="cn.int1024.cat.entity.po.Role">
+        <collection property="roles" javaType="list" ofType="cn.int1024.cat.entity.vo.RoleInfo">
             <id column="role_id" property="id" />
             <result column="role_name" property="name" />
             <result column="level" property="level" />
-            <result column="description" property="description" />
-        </association>
-        <collection property="permissions" ofType="cn.int1024.cat.entity.po.Permission">
-            <id column="permission_id" property="id" />
-            <result column="permission_name" property="name" />
             <result column="value" property="value" />
+            <collection property="permissions" javaType="list" ofType="cn.int1024.cat.entity.po.Permission">
+                <id column="permission_id" property="id" />
+                <result column="permission_name" property="name" />
+                <result column="permission_value" property="value" />
+            </collection>
         </collection>
     </resultMap>
 </mapper>

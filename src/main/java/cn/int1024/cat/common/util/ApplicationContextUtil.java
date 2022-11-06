@@ -6,8 +6,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description:
- * @Author: 双料特工 · 钏疝钾
+ * @Description: 对象获取工具
+ * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/25 22:27
  * @Version: 1.0
  */

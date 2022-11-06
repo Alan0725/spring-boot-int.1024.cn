@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 
 /**
- * @Description:
+ * @Description: 结果集
  * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/19 16:40:00
  * @Version: 1.0

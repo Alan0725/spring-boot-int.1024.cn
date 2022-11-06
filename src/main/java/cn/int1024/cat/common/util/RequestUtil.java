@@ -6,7 +6,7 @@ import org.thymeleaf.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Description:
+ * @Description: 请求相关工具
  * @Author: 双料特工·钏钐钾
  * @Date: 2022/10/19 15:57:00
  * @Version: 1.0
