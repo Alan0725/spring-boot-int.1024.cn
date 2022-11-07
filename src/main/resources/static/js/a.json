@@ -1,0 +1,42 @@
+[
+  {
+    "@type": "org.apache.shiro.authc.SimpleAuthenticationInfo",
+    "credentials": "$2a$10$fx73BdgI5WzMvgYqilkkW.GgsbTvaJodWHmmh21FzAS6NhS8.NjV6",
+    "principals": {
+      "@type": "org.apache.shiro.subject.SimplePrincipalCollection",
+      "empty": false,
+      "primaryPrincipal": "admin",
+      "realmNames": [
+        "cn.int1024.cat.security.CustomerRealm_0"
+      ]
+    }
+  },
+  {
+    "@type": "org.apache.shiro.authc.SimpleAuthenticationInfo",
+    "credentials": "$2a$10$fx73BdgI5WzMvgYqilkkW.GgsbTvaJodWHmmh21FzAS6NhS8.NjV6",
+    "principals": {
+      "@type": "org.apache.shiro.subject.SimplePrincipalCollection",
+      "empty": false,
+      "primaryPrincipal": "admin",
+      "realmNames": [
+        "cn.int1024.cat.security.CustomerRealm_0"
+      ]
+    }
+  },
+  {
+    "@class": "org.apache.shiro.authc.SimpleAuthenticationInfo",
+    "principals": {
+      "@class": "org.apache.shiro.subject.SimplePrincipalCollection",
+      "empty": false,
+      "primaryPrincipal": "admin",
+      "realmNames": [
+        "java.util.LinkedHashMap$LinkedKeySet",
+        [
+          "cn.int1024.cat.security.CustomerRealm_0"
+        ]
+      ]
+    },
+    "credentials": "$2a$10$fx73BdgI5WzMvgYqilkkW.GgsbTvaJodWHmmh21FzAS6NhS8.NjV6",
+    "credentialsSalt": null
+  }
+]

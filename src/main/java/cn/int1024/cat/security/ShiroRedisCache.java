@@ -1,11 +1,11 @@
 package cn.int1024.cat.security;
 
-import cn.int1024.cat.common.redis.RedisCache;
 import cn.int1024.cat.common.util.ApplicationContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Collection;
 import java.util.Set;
@@ -27,24 +27,21 @@ public class ShiroRedisCache<k, v> implements Cache<k, v> {
 
     @Override
     public v get(k k) throws CacheException {
-        String key = getKey(k);
-        log.debug("get {}", key);
-        return (v) getRedisTemplate().opsForHash().get(this.cacheName, key);
+        log.debug("get {}", k.toString());
+        return (v) getRedisTemplate().opsForHash().get(this.cacheName, k.toString());
     }
 
     @Override
     public v put(k k, v v) throws CacheException {
-        String key = getKey(k);
-        log.debug("put {} {}", key, v);
-        getRedisTemplate().opsForHash().put(this.cacheName, key, v);
+        log.debug("put {} {}", k.toString(), v);
+        getRedisTemplate().opsForHash().put(this.cacheName, k.toString(), v);
         return null;
     }
 
     @Override
     public v remove(k k) throws CacheException {
-        String key = getKey(k);
-        log.debug("remove {}", key);
-        return (v) getRedisTemplate().opsForHash().delete(this.cacheName, key);
+        log.debug("remove {}", k.toString());
+        return (v) getRedisTemplate().opsForHash().delete(this.cacheName, k.toString());
     }
 
     @Override
@@ -68,22 +65,9 @@ public class ShiroRedisCache<k, v> implements Cache<k, v> {
     }
 
     private RedisTemplate getRedisTemplate(){
-        RedisCache redisCache = (RedisCache) ApplicationContextUtil.getBean("redisCache");
-        return redisCache.redisTemplate;
-    }
-
-    private String getKey(k k) {
-        return k.toString();
-    }
-
-    private boolean isUserStr(k k) {
-        return k.toString().startsWith("User(") && k.toString().endsWith(")");
-    }
-
-    private String getUsernameByK(k k) {
-        String str = k.toString();
-        String str1 = str.substring(0, str.indexOf("username="));
-        String str2 = str.substring(str1.length()+9);
-        return str2.substring(0, str2.indexOf(","));
+        RedisTemplate redisTemplate = (RedisTemplate) ApplicationContextUtil.getBean("redisTemplate");
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        return redisTemplate;
     }
 }
