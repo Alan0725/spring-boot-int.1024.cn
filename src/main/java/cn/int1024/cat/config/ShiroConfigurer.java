@@ -1,11 +1,16 @@
 package cn.int1024.cat.config;
 
+import cn.int1024.cat.cache.SessionCache;
+import cn.int1024.cat.security.CustomSessionManager;
 import cn.int1024.cat.security.CustomerCredentialsMatcher;
 import cn.int1024.cat.security.CustomerRealm;
 import cn.int1024.cat.security.ShiroRedisCacheManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,6 +46,7 @@ public class ShiroConfigurer {
     public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
@@ -58,4 +64,17 @@ public class ShiroConfigurer {
         customerRealm.setAuthorizationCacheName("authorization");
         return customerRealm;
     }
+
+    @Bean
+    public SessionDAO sessionDAO() {
+        return new SessionCache();
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        CustomSessionManager sessionManager = new CustomSessionManager();
+        sessionManager.setSessionDAO(sessionDAO());
+        return sessionManager;
+    }
+
 }

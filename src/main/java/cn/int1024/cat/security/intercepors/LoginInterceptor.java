@@ -34,37 +34,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (handler instanceof ResourceHttpRequestHandler) {
 			return true;
 		}
-		if(RequestUtil.isAdminClient(request)) {
-			return this.checkToken(request, response);
-		}
-		return false;
-	}
-
-	private void setResult(HttpServletResponse response, String data) throws IOException {
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.write(Result.noPermission(data).toJSON().toString());
-		out.flush();
-		out.close();
-	}
-
-	/**
-	 * 校验令牌
-	 */
-	private boolean checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// 获取token
-		String token = request.getHeader(RequestUtil.HEADER_TOKEN_NAME);
-		if (StringUtils.isEmpty(token)) {
-			this.setResult(response, "please login");
-		} else {
-			try {
-				// 验证 token
-				return true;
-			} catch (Exception e) {
-				this.setResult(response, e.getMessage());
-			}
-		}
 		return false;
 	}
 }
