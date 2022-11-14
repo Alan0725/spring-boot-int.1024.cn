@@ -10,16 +10,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CatApplicationTests {
 
-    UserService userService;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Test
-    void contextLoads() {
-        UserInfo userInfo = userService.getUserInfo("admin");
-        System.out.println(userInfo.toString());
-    }
 }
