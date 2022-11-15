@@ -18,23 +18,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class RedisServerTests {
 
-    RedisService redisService;
+    RedisService<Object> redisService;
 
     @Autowired
-    public void setRedisService(RedisService redisService) {
+    public void setRedisService(RedisService<Object> redisService) {
         this.redisService = redisService;
     }
 
     @Test
     public void put() {
         User user = new User();
-        user.setStatus(1);
+        user.setUsername("213123");
         redisService.set("AAA", user);
         redisService.set("A", "AAA");
     }
 
     @Test
     public void get() {
-        log.info("get(A) {}", (String) redisService.get("A"));
+        log.info("get(A) {}", redisService.get("A"));
+        log.info("get(AAA) {}", ((User) redisService.get("AAA")).getUsername());
     }
 }

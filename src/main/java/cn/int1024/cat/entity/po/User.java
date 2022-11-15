@@ -46,13 +46,4 @@ public class User implements Serializable {
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     Date registerTime;
-
-    /**
-     * 是否启用
-     *
-     * @return boolean
-     */
-    public boolean isDisabled() {
-        return this.status.equals(UserStatus.DISABLE.getStatus());
-    }
 }

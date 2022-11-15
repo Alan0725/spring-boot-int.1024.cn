@@ -317,12 +317,32 @@ public class RedisService<T> {
 
     /**
      * 加入缓存
+     * @param key key
+     * @param hashKey hashKey
+     * @param value value
+     */
+    public void add(String key, Object hashKey, Object value) {
+        redisTemplate.opsForHash().put(key, hashKey, value);
+    }
+
+    /**
+     * 加入缓存
      *
      * @param key 键 键
      * @param map 键
      */
     public void addObject(String key, Map<Integer, Object> map) {
         redisTemplate.opsForHash().putAll(key, map);
+    }
+
+    /**
+     * 获取
+     *
+     * @param key key
+     * @param hashKey hashKey
+     */
+    public Object getByHashKey(String key, Object hashKey) {
+        return redisTemplate.opsForHash().get(key, hashKey);
     }
 
     /**
