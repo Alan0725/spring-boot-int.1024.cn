@@ -4,11 +4,14 @@ import cn.int1024.cat.common.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Description: 会话缓存
@@ -17,9 +20,11 @@ import java.util.Collection;
  * @Version: 1.0
  */
 @Slf4j
-public class SessionCache implements SessionDAO {
+@Component
+public class SessionCache extends AbstractSessionDAO {
 
     private static final String CACHE_NAME = "SessionCache";
+
     private RedisService<Session> redisService;
 
     @Autowired
@@ -28,32 +33,44 @@ public class SessionCache implements SessionDAO {
     }
 
     @Override
-    public Serializable create(Session session) {
+    protected Serializable doCreate(Session session) {
         log.debug("SessionCache create {}", session);
-        redisService.add(CACHE_NAME, session.getId(), session);
-        return null;
+        Serializable sessionId = this.generateSessionId(session);
+        this.assignSessionId(session, sessionId);
+        this.storeSession(sessionId, session);
+        return sessionId;
     }
 
     @Override
-    public Session readSession(Serializable serializable) throws UnknownSessionException {
-        log.debug("SessionCache readSession {}", serializable.toString());
-        return null;
+    protected Session doReadSession(Serializable serializable) {
+        log.debug("SessionCache doReadSession {}", serializable);
+        Object object = redisService.getByHashKey(CACHE_NAME, serializable);
+        return Objects.isNull(object) ? null : (Session) object;
     }
 
     @Override
     public void update(Session session) throws UnknownSessionException {
         log.debug("SessionCache update {}", session);
-
+        this.storeSession(session.getId(), session);
     }
 
     @Override
     public void delete(Session session) {
         log.debug("SessionCache delete {}", session);
+        redisService.delete(CACHE_NAME, session.getId());
     }
 
     @Override
     public Collection<Session> getActiveSessions() {
         log.debug("SessionCache getActiveSessions");
-        return null;
+        Map<Object, Session> map = redisService.getHashEntries(CACHE_NAME);
+        if (Objects.isNull(map) || map.isEmpty()) {
+            return null;
+        }
+        return map.values();
+    }
+
+    private void storeSession(Serializable serializable, Session session) {
+        redisService.add(CACHE_NAME, serializable, session);
     }
 }

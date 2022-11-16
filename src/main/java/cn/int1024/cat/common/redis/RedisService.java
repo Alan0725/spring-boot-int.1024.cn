@@ -350,8 +350,8 @@ public class RedisService<T> {
      *
      * @param key 键 键
      */
-    public Map<Object, Object> getHashEntries(String key) {
-        return redisTemplate.opsForHash().entries(key);
+    public Map<Object, T> getHashEntries(String key) {
+        return (Map<Object, T>) redisTemplate.opsForHash().entries(key);
     }
 
     /**
