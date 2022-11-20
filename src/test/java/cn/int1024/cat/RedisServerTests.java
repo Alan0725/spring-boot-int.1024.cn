@@ -7,6 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+
+import javax.annotation.Resource;
 
 /**
  * @Description:
@@ -18,24 +22,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class RedisServerTests {
 
-    RedisService<Object> redisService;
-
-    @Autowired
-    public void setRedisService(RedisService<Object> redisService) {
-        this.redisService = redisService;
-    }
+    @Resource
+    RedisTemplate<String, User> redisTemplate;
 
     @Test
     public void put() {
         User user = new User();
         user.setUsername("213123");
-        redisService.set("AAA", user);
-        redisService.set("A", "AAA");
+        redisTemplate.opsForHash().put("ABC", "A", user);
     }
 
     @Test
     public void get() {
-        log.info("get(A) {}", redisService.get("A"));
-        log.info("get(AAA) {}", ((User) redisService.get("AAA")).getUsername());
+        log.debug("{}", ((User) redisTemplate.opsForHash().get("ABC", "A")).getUsername());
     }
 }

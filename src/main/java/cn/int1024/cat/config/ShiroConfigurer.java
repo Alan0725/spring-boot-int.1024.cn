@@ -1,11 +1,9 @@
 package cn.int1024.cat.config;
 
 import cn.int1024.cat.cache.SessionCache;
-import cn.int1024.cat.security.CustomSessionManager;
-import cn.int1024.cat.security.CustomerCredentialsMatcher;
-import cn.int1024.cat.security.CustomerRealm;
-import cn.int1024.cat.security.ShiroRedisCacheManager;
+import cn.int1024.cat.security.*;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -71,9 +69,15 @@ public class ShiroConfigurer {
     }
 
     @Bean
+    public SessionFactory sessionFactory() {
+        return new UserSessionFactory();
+    }
+
+    @Bean
     public SessionManager sessionManager() {
         CustomSessionManager sessionManager = new CustomSessionManager();
         sessionManager.setSessionDAO(sessionDAO());
+        sessionManager.setSessionFactory(sessionFactory());
         return sessionManager;
     }
 

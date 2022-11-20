@@ -15,7 +15,7 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
-public class User implements Serializable {
+public class User {
 
     Integer id;
 
@@ -46,4 +46,5 @@ public class User implements Serializable {
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     Date registerTime;
+
 }

@@ -1,6 +1,7 @@
 package cn.int1024.cat.cache;
 
 import cn.int1024.cat.common.redis.RedisService;
+import cn.int1024.cat.entity.bo.UserSession;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -36,7 +37,7 @@ public class SessionCache extends AbstractSessionDAO {
     protected Serializable doCreate(Session session) {
         log.debug("SessionCache create {}", session);
         Serializable sessionId = this.generateSessionId(session);
-        this.assignSessionId(session, sessionId);
+        ((UserSession) session).setId(sessionId);
         this.storeSession(sessionId, session);
         return sessionId;
     }
