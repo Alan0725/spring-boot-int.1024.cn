@@ -22,7 +22,7 @@ public class Result<T> {
 	 * 返回的信息
 	 */
 	@Getter
-	private final String msg;
+	private final String message;
 
 	/**
 	 * 返回的数据
@@ -72,35 +72,40 @@ public class Result<T> {
 
 	private Result(T data) {
 		this.code = ResultCode.SUCCESS.getCode();
-		this.msg = ResultCode.SUCCESS.getMsg();
+		this.message = ResultCode.SUCCESS.getMsg();
 		this.data = data;
 	}
 
 	private Result() {
 		this.code = ResultCode.SUCCESS.getCode();
-		this.msg = ResultCode.SUCCESS.getMsg();
+		this.message = ResultCode.SUCCESS.getMsg();
 	}
 
 	private Result(String msg) {
 		this.code = ResultCode.ERROR.getCode();
-		this.msg = msg;
+		this.message = msg;
 	}
 
 	private Result(int code, String msg) {
 		this.code = code;
-		this.msg = msg;
+		this.message = msg;
 	}
 
 	private Result(int code, String msg, T data) {
 		this.code = code;
-		this.msg = msg;
+		this.message = msg;
 		this.data = data;
+	}
+
+	private Result(ResultCode code) {
+		this.code = code.getCode();
+		this.message = code.getMsg();
 	}
 
 	public JSON toJSON() {
 		JSONObject object = new JSONObject();
 		object.put("code", code);
-		object.put("msg", msg);
+		object.put("message", message);
 		object.put("data", data);
 		return object;
 	}

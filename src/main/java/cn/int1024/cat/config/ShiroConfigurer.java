@@ -1,6 +1,6 @@
 package cn.int1024.cat.config;
 
-import cn.int1024.cat.cache.SessionCache;
+import cn.int1024.cat.cache.ShiroSessionCache;
 import cn.int1024.cat.security.*;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionFactory;
@@ -8,7 +8,6 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,9 +29,8 @@ public class ShiroConfigurer {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 配置系统受限资源
         Map<String, String> map = new HashMap<>(1);
-        map.put("/user/login", "anon");
-        map.put("/user/register", "anon");
-        map.put("/register.jsp", "anon");
+        map.put("/users/login", "anon");
+        map.put("/users/register", "anon");
         map.put("/**", "authc");
         // 设置认证界面路径
         shiroFilterFactoryBean.setLoginUrl("/login.jsp");
@@ -57,15 +55,15 @@ public class ShiroConfigurer {
         customerRealm.setCacheManager(new ShiroRedisCacheManager());
         customerRealm.setCachingEnabled(true);
         customerRealm.setAuthenticationCachingEnabled(true);
-        customerRealm.setAuthenticationCacheName("authentication");
         customerRealm.setAuthorizationCachingEnabled(true);
-        customerRealm.setAuthorizationCacheName("authorization");
+        customerRealm.setAuthenticationCacheName("CatAuthenticationCache");
+        customerRealm.setAuthorizationCacheName("CatAuthorizationCache");
         return customerRealm;
     }
 
     @Bean
     public SessionDAO sessionDAO() {
-        return new SessionCache();
+        return new ShiroSessionCache();
     }
 
     @Bean

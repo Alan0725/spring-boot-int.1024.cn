@@ -1,6 +1,8 @@
 package cn.int1024.cat.controller;
 
+import cn.int1024.cat.common.util.Result;
 import cn.int1024.cat.entity.po.User;
+import cn.int1024.cat.enums.ResultCode;
 import cn.int1024.cat.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -9,8 +11,9 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * @Description: UserController
@@ -19,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Version: 1.0
  */
 @Slf4j
-@Controller
-@RequestMapping("/user")
+@RestController
+@RequestMapping("/users")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -43,20 +46,20 @@ public class UserController {
 		return "redirect:/login.jsp";
 	}
 
-	@RequestMapping("/login")
-	public String login(String username, String password) {
+	@PostMapping("/login")
+	public Result<String> login(String username, String password) {
+		if(Objects.isNull(username) || Objects.isNull(password) ) {
+			return Result.error(ResultCode.USERNAME_PASSWORD_INCORRECT.getCode(), "账号或密码错误");
+		}
 		//获取主题对象
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(new UsernamePasswordToken(username,password));
 			String principal = (String) subject.getPrincipal();
 			log.debug("{} 登录成功！！！", principal);
-			return "redirect:/index.jsp";
-		} catch (UnknownAccountException e) {
-			log.debug("用户错误！！！");
-		} catch (IncorrectCredentialsException e) {
-			log.debug("密码错误！！！");
+			return Result.success("登录成功");
+		} catch (UnknownAccountException | IncorrectCredentialsException e) {
+			return Result.error("账号或密码错误");
 		}
-		return "redirect:/login.jsp";
 	}
 }

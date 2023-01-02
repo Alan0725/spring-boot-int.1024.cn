@@ -24,7 +24,7 @@ public class CustomSessionManager extends DefaultWebSessionManager {
         String id;
         // 客户端从请求头获取
         if(RequestUtil.isClient(httpServletRequest)) {
-            id = RequestUtil.getHeaderJsessionid(httpServletRequest);
+            id = RequestUtil.getHeaderAuthToken(httpServletRequest);
             if(StringUtils.hasLength(id)) {
                 request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, "header");
                 request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);

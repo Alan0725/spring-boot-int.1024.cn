@@ -52,11 +52,13 @@ public class UserSession implements ValidatingSession, Serializable {
     /**
      * 属性
      */
+    @JsonIgnore
     private Map<Object, Object> attributes;
 
     /**
      * 是否有效
      */
+    @JsonIgnore
     private boolean valid;
 
     public UserSession() {
@@ -141,6 +143,7 @@ public class UserSession implements ValidatingSession, Serializable {
     }
 
     @Override
+    @JsonIgnore
     public Collection<Object> getAttributeKeys() throws InvalidSessionException {
         Map<Object, Object> attributes = this.getAttributes();
         return attributes == null ? Collections.emptySet() : attributes.keySet();
@@ -166,6 +169,7 @@ public class UserSession implements ValidatingSession, Serializable {
         return attributes == null ? null : attributes.remove(key);
     }
 
+    @JsonIgnore
     private Map<Object, Object> getAttributesLazy() {
         Map<Object, Object> attributes = this.getAttributes();
         if (attributes == null) {

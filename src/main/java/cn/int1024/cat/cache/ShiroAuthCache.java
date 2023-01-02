@@ -1,4 +1,4 @@
-package cn.int1024.cat.security;
+package cn.int1024.cat.cache;
 
 import cn.int1024.cat.common.util.ApplicationContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -17,55 +18,55 @@ import java.util.Set;
  * @Version: 1.0
  */
 @Slf4j
-public class ShiroRedisCache<k, v> implements Cache<k, v> {
+public class ShiroAuthCache<k, v> implements Cache<k, v> {
 
-    private String cacheName;
+    private final String CACHE_NAME;
 
-    public ShiroRedisCache(String cacheName) {
-        this.cacheName = cacheName;
+    public ShiroAuthCache(String cacheName) {
+        this.CACHE_NAME = cacheName;
     }
 
     @Override
     public v get(k k) throws CacheException {
-        log.debug("get {}", k.toString());
-        return (v) getRedisTemplate().opsForHash().get(this.cacheName, k.toString());
+        if(Objects.isNull(k)) {
+            return null;
+        }
+        return (v) getRedisTemplate().opsForHash().get(this.CACHE_NAME, k.toString());
     }
 
     @Override
     public v put(k k, v v) throws CacheException {
-        log.debug("put {} {}", k.toString(), v);
-        getRedisTemplate().opsForHash().put(this.cacheName, k.toString(), v);
+        getRedisTemplate().opsForHash().put(this.CACHE_NAME, k.toString(), v);
         return null;
     }
 
     @Override
     public v remove(k k) throws CacheException {
-        log.debug("remove {}", k.toString());
-        return (v) getRedisTemplate().opsForHash().delete(this.cacheName, k.toString());
+        return (v) getRedisTemplate().opsForHash().delete(this.CACHE_NAME, k.toString());
     }
 
     @Override
     public void clear() throws CacheException {
-        getRedisTemplate().delete(this.cacheName);
+        getRedisTemplate().delete(this.CACHE_NAME);
     }
 
     @Override
     public int size() {
-        return getRedisTemplate().opsForHash().size(this.cacheName).intValue();
+        return getRedisTemplate().opsForHash().size(this.CACHE_NAME).intValue();
     }
 
     @Override
     public Set<k> keys() {
-        return getRedisTemplate().opsForHash().keys(this.cacheName);
+        return (Set<k>) getRedisTemplate().opsForHash().keys(this.CACHE_NAME);
     }
 
     @Override
     public Collection<v> values() {
-        return getRedisTemplate().opsForHash().values(this.cacheName);
+        return (Collection<v>) getRedisTemplate().opsForHash().values(this.CACHE_NAME);
     }
 
-    private RedisTemplate getRedisTemplate(){
-        RedisTemplate redisTemplate = (RedisTemplate) ApplicationContextUtil.getBean("redisTemplate");
+    private RedisTemplate<String, v> getRedisTemplate() {
+        RedisTemplate<String, v> redisTemplate = (RedisTemplate<String, v>) ApplicationContextUtil.getBean("redisTemplate");
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         return redisTemplate;

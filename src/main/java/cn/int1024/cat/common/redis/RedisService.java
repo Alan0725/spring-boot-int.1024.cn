@@ -348,7 +348,7 @@ public class RedisService<T> {
     /**
      * 获取 key 下的 所有 hashkey 和 value
      *
-     * @param key 键 键
+     * @param key 键 键he
      */
     public Map<Object, T> getHashEntries(String key) {
         return (Map<Object, T>) redisTemplate.opsForHash().entries(key);

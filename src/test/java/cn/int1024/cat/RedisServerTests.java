@@ -1,14 +1,10 @@
 package cn.int1024.cat;
 
-import cn.int1024.cat.common.redis.RedisService;
 import cn.int1024.cat.entity.po.User;
-import cn.int1024.cat.entity.vo.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
 

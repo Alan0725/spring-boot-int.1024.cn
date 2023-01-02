@@ -1,16 +1,12 @@
 package cn.int1024.cat.security.intercepors;
 
-import cn.int1024.cat.common.util.RequestUtil;
-import cn.int1024.cat.common.util.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @Description: 登录拦截器

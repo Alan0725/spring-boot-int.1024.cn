@@ -1,7 +1,6 @@
 package cn.int1024.cat.config;
 
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @Description: WebConfigurer
