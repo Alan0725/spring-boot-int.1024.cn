@@ -2,6 +2,7 @@ package cn.int1024.cat.config;
 
 import cn.int1024.cat.cache.ShiroSessionCache;
 import cn.int1024.cat.security.*;
+import cn.int1024.cat.security.filter.ResultFormAuthenticationFilter;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -11,6 +12,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,13 +30,16 @@ public class ShiroConfigurer {
         // 给ShiroFilter配置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 配置系统受限资源
-        Map<String, String> map = new HashMap<>(1);
+        Map<String, String> map = new HashMap<>();
         map.put("/users/login", "anon");
-        map.put("/users/register", "anon");
+        map.put("/", "anon");
         map.put("/**", "authc");
         // 设置认证界面路径
-        shiroFilterFactoryBean.setLoginUrl("/login.jsp");
+        shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+        Map<String, Filter> filters = new HashMap<>();
+        filters.put("authc", new ResultFormAuthenticationFilter());
+        shiroFilterFactoryBean.setFilters(filters);
         return shiroFilterFactoryBean;
     }
 

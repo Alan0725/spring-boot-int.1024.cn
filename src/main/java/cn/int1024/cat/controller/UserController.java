@@ -28,22 +28,18 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/register")
-	public String register(User user) {
-		try {
-			userService.register(user);
-			return "redirect:/login.jsp";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "redirect:/register.jsp";
-		}
+	@GetMapping("/info")
+	public Result<User> info(String token) {
+		// TOKEN 校验
+		Subject subject = SecurityUtils.getSubject();
+		log.debug("Token：{}，SessionId：{}，Principal：{}", token, subject.getSession().getId(), subject.getPrincipal());
+		return Result.success(userService.findByUsername((String) subject.getPrincipal()));
 	}
 
-	@RequestMapping("logout")
-	public String logout() {
-		Subject subject = SecurityUtils.getSubject();
-		subject.logout();
-		return "redirect:/login.jsp";
+	@PostMapping("logout")
+	public Result<String> logout() {
+		SecurityUtils.getSubject().logout();
+		return Result.success("退出登录成功");
 	}
 
 	@PostMapping("/login")
@@ -54,7 +50,7 @@ public class UserController {
 		//获取主题对象
 		Subject subject = SecurityUtils.getSubject();
 		try {
-			subject.login(new UsernamePasswordToken(username,password));
+			subject.login(new UsernamePasswordToken(username, password));
 			String principal = (String) subject.getPrincipal();
 			log.debug("{} 登录成功！！！", principal);
 			return Result.success("登录成功");
@@ -62,4 +58,5 @@ public class UserController {
 			return Result.error("账号或密码错误");
 		}
 	}
+
 }
